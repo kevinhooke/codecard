@@ -36,8 +36,8 @@ The following instruction describes the setup and configuration of the Arduino I
    - esp8266 by ESP8266 Community 2.7.4
 6. Install the required modules: Sketch | Include Libraries | Manage Libraries
    - ArduinoJson by Benoit Blanchon version 6.17.0
-   - GxEPD2 by Jean-Marc Zingg version 1.1.0
-   - Adafruit GFX Library by Adafruit 1.4.8
+   - GxEPD2 by Jean-Marc Zingg version 1.2.13
+   - Adafruit GFX Library by Adafruit 1.10.3
 7. Under Tools set the following settings:
    - Board: “Generic ESP8266 Module”
    - Upload Speed “115200”
