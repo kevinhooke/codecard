@@ -20,7 +20,7 @@ There are loads of things that you can do with your Code Card - here's a list of
   - **[Terminal Emulator](/terminal/README.md#alternative-via-terminal-emulator)**  
     Manually configure your Code Card using a serial connection over USB. Initiate a serial connection using your favourite terminal emulation package (Putty, etc.) and configure your Code Card using the integrated CLI.
 
-  - **[Code Card Configurator](/codecard-configurator)*(Not Available)*  
+  - **[Code Card Configurator](/codecard-configurator) (Not Available)**  
     Python script to automatically configure Code Card settings using serial connection over USB. Useful for restting Code Card settings back to default, or to save and batch apply custom settings.  
     The Code Card Configurator uses the pyserial module to perform configuration updates.
 
