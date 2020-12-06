@@ -13,7 +13,7 @@ In order to customise the Code Card firmware, you need to download the [Arduino 
 The Arduino core for ESP8266 is a C++ based firmware. With this core, the ESP8266 CPU and its Wi-Fi components can be programmed like any other Arduino device using the Arduino IDE.  
 
 ### Code Card Source Code
-Download or `git clone https://github.com/cameronsenese/codecard.git` this project, and open the Arduino main file ([codecard.ino](https://github.com/cameronsenese/codecard/blob/master/arduino/codecard/codecard.ino)) to get started.
+Download or `git clone https://github.com/jlowe000/codecard.git` this project, and open the Arduino main file ([codecard.ino](https://github.com/jlowe000/codecard/arduino/codecard/codecard.ino)) to get started.
 
 - /arduino contains the source code for the Code Card
 - /arduino/bin contains a precompiled image of the Code Card firmware
@@ -26,6 +26,7 @@ The following instruction describes the setup and configuration of the Arduino I
 - *Ensure your Code Card can connect to Wi-Fi before completing step #12*
 - *This was updated from previous version*
 - *The previous versions had issues with out of date fingerprints for TLS*
+- *The JSON document has been changed to static size of 400 because of OOM issues*
 
 1. Install the Arduino IDE version 1.8.13: https://www.arduino.cc/en/Main/Software
 2. Install the serial driver for the ESP-12F Wi-Fi chip: https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers
