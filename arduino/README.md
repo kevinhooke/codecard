@@ -34,7 +34,7 @@ The following instruction describes the setup and configuration of the Arduino I
 5. Install esp8266 support: Tools | Board | Board Manager
    - esp8266 by ESP8266 Community 2.7.4
 6. Install the required modules: Sketch | Include Libraries | Manage Libraries
-   - ArduinoJson by Benoit Blanchon version 5.13.3
+   - ArduinoJson by Benoit Blanchon version 6.17.0
    - GxEPD2 by Jean-Marc Zingg version 1.1.0
    - Adafruit GFX Library by Adafruit 1.4.8
 7. Under Tools set the following settings:

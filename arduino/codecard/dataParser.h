@@ -3,58 +3,109 @@
   
 */
 
-void parseJson(String jsonString) {  
-  
-  const size_t capacity = jsonString.length();
-  DynamicJsonBuffer jsonBuffer(capacity);
-  //StaticJsonBuffer<400> jsonBuffer;
-  JsonObject& root = jsonBuffer.parseObject(jsonString);
-
-  String jsonStr;
-  root.printTo(jsonStr);
-  Serial.println(F("Response: "));
-  Serial.println("  " + jsonStr);
-  Serial.println(F(">>>"));
-
-  if (!root.success()) {
-    Serial.println(F("JSON parsing failed!"));
-    Serial.println(F(">>>"));
-    template1("Invalid response", "Please verify JSON",  jsonString ,"fail","","", "");
-    //saveToMemory(getKeyIndex("showdefaultscreen"), "true");
-    return;
-  }
-
+void parseJsonDocument(StaticJsonDocument<400> root) {
   //saveToMemory(getKeyIndex("lastpayload"), jsonStr);
   
-  String templateName = root["template"].as<String>();
-  String title = root["title"].as<String>();
-  String subtitle = root["subtitle"].as<String>();
-  String body = root["bodytext"].as<String>();
-  String icon = root["icon"].as<String>();
-  String backgroundImage = root["backgroundImage"].as<String>();
-  String backgroundColor = root["backgroundColor"].as<String>();
-  String badge = root["badge"].as<String>();
-  String fingerprint = root["fingerprint"].as<String>();
-  String barcode = root["barcode"].as<String>();
-
+  String templateName = "";
+  if (!root["template"].isNull()){
+    templateName = root["template"].as<String>();
+  }
+  Serial.println(templateName);
+  String title = "";
+  if (!root["title"].isNull()){
+    title = root["title"].as<String>();
+  }
+  Serial.println(title);
+  String subtitle = "";
+  if (!root["subtitle"].isNull()){
+    subtitle = root["subtitle"].as<String>();
+  }
+  Serial.println(subtitle);
+  String body = "";
+  if (!root["bodytext"].isNull()){
+    body = root["bodytext"].as<String>();
+  }
+  Serial.println(body);
+  String icon = "";
+  if (!root["icon"].isNull()){
+    icon = root["icon"].as<String>();
+  }
+  Serial.println(icon);
+  String backgroundImage = "";
+  if (!root["backgroundImage"].isNull()){
+    icon = root["backgroundImage"].as<String>();
+  }
+  Serial.println(backgroundImage);
+  String backgroundColor = "";
+  if (!root["backgroundColor"].isNull()){
+    backgroundColor = root["backgroundColor"].as<String>();
+  }
+  Serial.println(backgroundColor);
+  String badge = "";
+  if (!root["badge"].isNull()){
+    badge = root["badge"].as<String>();
+  }
+  Serial.println(badge);
+  String fingerprint = "";
+  if (!root["fingerprint"].isNull()){
+    fingerprint = root["fingerprint"].as<String>();
+  }
+  Serial.println(fingerprint);
+  String barcode = "";
+  if (!root["barcode"].isNull()){
+    barcode = root["barcode"].as<String>();
+  }
+  Serial.println(barcode);
 
   if (templateName == "custom"){
-    String titleFont = root["titleFont"].as<String>();
-    String titleX = root["titleX"].as<String>();
-    String titleY = root["titleY"].as<String>();
-    String subtitleFont = root["subtitleFont"].as<String>();
-    String subTitleX = root["subTitleX"].as<String>();
-    String subTitleY = root["subTitleY"].as<String>();
-    String bodyFont = root["bodyFont"].as<String>();
-    String bodyX = root["bodyX"].as<String>();
-    String bodyY = root["bodyY"].as<String>();
-    String iconX = root["iconX"].as<String>();
-    String iconY = root["iconY"].as<String>();
+    String titleFont = "";
+    if (!root["titleFont"].isNull()){
+      titleFont = root["titleFont"].as<String>();
+    }
+    String titleX = "";
+    if (!root["titleX"].isNull()){
+      titleX = root["titleX"].as<String>();
+    }
+    String titleY = "";
+    if (!root["titleY"].isNull()){
+      titleY = root["titleY"].as<String>();
+    }
+    String subtitleFont = "";
+    if (!root["subtitleFont"].isNull()){
+      subtitleFont = root["subtitleFont"].as<String>();
+    }
+    String subTitleX = "";
+    if (!root["subTitleX"].isNull()){
+      subTitleX = root["subTitleX"].as<String>();
+    }
+    String subTitleY = "";
+    if (!root["subTitleY"].isNull()){
+      subTitleY = root["subTitleY"].as<String>();
+    }
+    String bodyFont = "";
+    if (!root["bodyFont"].isNull()){
+      bodyFont = root["bodyFont"].as<String>();
+    }
+    String bodyX = "";
+    if (!root["bodyX"].isNull()){
+      bodyX = root["bodyX"].as<String>();
+    }
+    String bodyY = "";
+    if (!root["bodyY"].isNull()){
+      bodyY = root["bodyY"].as<String>();
+    }
+    String iconX = "";
+    if (!root["iconX"].isNull()){
+      iconX = root["iconX"].as<String>();
+    }
+    String iconY = "";
+    if (!root["iconY"].isNull()){
+      iconY = root["iconY"].as<String>();
+    }
     custom();
   }
   
-
-  jsonBuffer.clear();
+  root.clear();
     
   // Serial.println("Free HEAP: " + String(ESP.getFreeHeap()));
   
@@ -83,18 +134,38 @@ void parseJson(String jsonString) {
   } else if (templateName == "template11") {
     template11(title, subtitle, icon, badge, backgroundColor, fingerprint);                 
   } else {
+    String jsonString = "";
+    serializeJson(root, jsonString);
     template1("Invalid response", "Please verify JSON",  jsonString ,"fail","","", "");
     saveToMemory(getKeyIndex("showdefaultscreen"), "true");
   }
+}
+
+void parseJson(String jsonString) {  
   
-}
+  // DynamicJsonBuffer jsonBuffer(capacity);
+  // //StaticJsonBuffer<400> jsonBuffer;
+  // JsonObject& root = jsonBuffer.parseObject(jsonString);
+  const size_t capacity = jsonString.length();
+  StaticJsonDocument<400> root;
+  DeserializationError err = deserializeJson(root, jsonString);
 
-void parseJsonObject(JsonObject& root) {
-  String jsonStr;
-  root.printTo(jsonStr);
-  parseJson(jsonStr);
-}
+  if (err) {
+    Serial.println(F("JSON parsing failed!"));
+    Serial.println(err.c_str());
+    Serial.println(F(">>>"));
+    template1("Invalid response", "Please verify JSON",  jsonString ,"fail","","", "");
+    return;
+  }
 
+  // String jsonStr;
+  // root.printTo(jsonStr);
+  Serial.println(F("Response: "));
+  Serial.println("  " + jsonString);
+  Serial.println(F(">>>"));
+
+  parseJsonDocument(root);
+}
 
 void displayImageFromUrlTest(WiFiClient& client, int16_t x, int16_t y, bool connection_ok, bool with_color) {
   bool valid = false; // valid format to be handled
