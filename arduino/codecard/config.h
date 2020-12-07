@@ -36,12 +36,12 @@ GxEPD2_BW<GxEPD2_270, GxEPD2_270::HEIGHT> display(GxEPD2_270(/*CS=D8*/ 2, /*DC=D
 const char* projectName = "Code Card";
 const char* projectVersion = "1.0";
 const char* projectAuthor = "Oracle Groundbreakers";
-const char* projectSite = "developer.oracle.com/codecard";
+const char* projectSite = "developer.oracle.com";
 
 const char* defaultSSID = "";
 const char* defaultPassword = "";
 const char* defaultUrl = "https://apex.oracle.com/pls/apex/appslab/functions/master";
-const char* defaultFingerprint = "01 92 1A 05 84 F5 36 14 85 E3 9C 87 93 4C D0 76 64 B1 CE 9D";
+const char* defaultFingerprint = "ea f6 bd a2 07 3c 1e e7 73 bb 37 99 8e 32 3d 6b 47 2f a8 7a";
 
 //char arrayToStore[100];
 const int maxValue = 200;
