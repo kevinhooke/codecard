@@ -133,6 +133,8 @@ void parseJsonDocument(StaticJsonDocument<400> root) {
     template10(title, subtitle, body, backgroundColor, barcode);    
   } else if (templateName == "template11") {
     template11(title, subtitle, icon, badge, backgroundColor, fingerprint);                 
+  } else if (templateName == "template12") {
+    template12(title, subtitle, backgroundColor, body);
   } else {
     String jsonString = "";
     serializeJson(root, jsonString);

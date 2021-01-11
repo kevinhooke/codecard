@@ -7,6 +7,7 @@
 #include <pgmspace.h>
 #include <EEPROM.h>
 #include <GxEPD2_BW.h>        // Download/Clone and put in Arduino Library https://github.com/ZinggJM/GxEPD2
+#include "qrcode.h"
 
 #define WAKE_PIN 16
 #define BAUD_SPEED 115200
@@ -67,7 +68,6 @@ const char* const keys[keysLen] PROGMEM = {
   "methodb2", 
   "initalsetup"
   };
-
 
 // Wifi image settings  
 static const uint16_t input_buffer_pixels = 640; // may affect performance

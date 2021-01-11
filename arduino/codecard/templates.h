@@ -5,6 +5,32 @@
 
 void imageFromUrl(String url, int16_t x, int16_t y, String fingerprint = "", bool with_color = true);
 
+void drawQRCode(int qr_x, int qr_y, int blocksize, const char* code) {
+  // Create the QR code
+  QRCode qrcode;
+  uint8_t qrcodeData[qrcode_getBufferSize(3)];
+  qrcode_initText(&qrcode, qrcodeData, 3, 0, code);
+  if (qr_x == 0) {
+    qr_x = (display.width()-qrcode.size) / 2;
+  }
+  if (qr_y == 0) {
+    qr_y = (display.height()-qrcode.size) / 2;
+  }
+  display.fillRect(qr_y, qr_x, (qrcode.size+2)*blocksize, (qrcode.size+2)*blocksize, GxEPD_WHITE);
+  for (uint8 y = 0; y < qrcode.size; y++) {
+    for (uint8 x = 0; x < qrcode.size; x++) {
+      if (qrcode_getModule(&qrcode, x, y)) {
+          Serial.print("*");
+          display.fillRect(qr_y+blocksize+y*blocksize, qr_x+blocksize+x*blocksize, blocksize, blocksize, GxEPD_BLACK);
+      } else {
+          Serial.print(" ");
+          display.fillRect(qr_y+blocksize+y*blocksize, qr_x+blocksize+x*blocksize, blocksize, blocksize, GxEPD_WHITE);
+      }
+    }
+    Serial.print("\n");
+  }
+}
+
 void drawBarcode39(int x, int y, int width, int height, int pitch, String barcode){
   int c = 0;
   display.fillRect(x, y, width, height, GxEPD_WHITE);
@@ -537,7 +563,7 @@ void template10(String title, String subtitle, String body, String backgroundCol
     
     display.setFont(&FreeSansBold9pt7b);
     display.setCursor(1, 50);
-    display.println(subtitle.substring(0,26));
+    display.println(subtitle.substring(0,27));
 
     display.setFont(&FreeSans9pt7b);
     display.setCursor(0, 77);
@@ -568,14 +594,14 @@ void template11(String title, String subtitle, String icon, String badge, String
   if (backgroundColor == "black"){
     bgColor = GxEPD_BLACK;
     txtColor = GxEPD_WHITE;
-  } 
+  }
 
   int middle = display.width() / 2 - 68;
-  
+
   do {
     display.fillScreen(bgColor);
     display.setTextColor(txtColor);  
-  
+
     if (badge != "") {
       // badge
       drawBadge(middle, 2, 64, badge, bgColor); 
@@ -604,7 +630,43 @@ void template11(String title, String subtitle, String icon, String badge, String
     imageFromUrl(icon, 2, -iconY, fingerprint , false);
     
   }
-    
+}
+
+void template12(String title, String subtitle, String backgroundColor, String body) {
+  long bgColor = GxEPD_WHITE;
+  long txtColor = GxEPD_BLACK;
+  
+  display.setFullWindow();
+  display.firstPage();
+
+  if (backgroundColor == "black"){
+    bgColor = GxEPD_BLACK;
+    txtColor = GxEPD_WHITE;
+  } 
+
+  int qr_x = 4;
+  int qr_y = 0;
+  int qr_blocksize = 4;
+  
+  do {
+    display.fillScreen(bgColor);
+    display.setTextColor(txtColor);  
+
+    drawQRCode(qr_x,qr_y,qr_blocksize,body.c_str());
+    // title
+    display.setFont(&FreeSansBold12pt7b); 
+    int titleX = 126 - (title.length() / 2 * 12);
+    display.setCursor(titleX, 150);
+    display.println(title.substring(0, 22));  
+  
+    // subtitle 
+    display.setFont(&FreeSans9pt7b);
+    int subtitleX = 126 - (subtitle.length() / 2 * 9);
+    display.setCursor(subtitleX, 170);
+    display.println(subtitle.substring(0, 26));
+  }
+  while (display.nextPage());
+
 }
 
 void custom(){
