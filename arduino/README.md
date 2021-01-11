@@ -38,6 +38,7 @@ The following instruction describes the setup and configuration of the Arduino I
    - ArduinoJson by Benoit Blanchon version 6.17.0
    - GxEPD2 by Jean-Marc Zingg version 1.2.13
    - Adafruit GFX Library by Adafruit 1.10.3
+   - QRCode by Richard Moore 0.0.1
 7. Under Tools set the following settings:
    - Board: “Generic ESP8266 Module”
    - Upload Speed “115200”
