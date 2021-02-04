@@ -55,7 +55,7 @@ The following instruction describes the setup and configuration of the Arduino I
    - Builtin Led: “2”
    - Erase Flash: “Only Sketch”
    - Port: This is the port that shows up once you turn on the CodeCard and press a button
-   - Programmer: “ArduinoISP”
+   - Programmer: “None”
 8.  Open the codecard.ino sketch located in the /arduino directory downloaded in step 3 above
    - File | Open | codecard.ino
 9. Connect the CodeCard via USB to your computer
@@ -67,6 +67,9 @@ The following instruction describes the setup and configuration of the Arduino I
 Shutting down...
 Shutting down...
 ```
+KH note: continue holding button A while you start the Upload. Once the upload starts you can let go. If you let go before the upload
+starts you'll get this eror:
+"esptool.FatalError: Failed to connect to ESP8266: Timed out waiting for packet header"
 13. From the Arduino IDE choose Sketch | Upload
     - The Arduino IDE may compile the skectch before uploading to the Code Card.
     - The following output indicates completed firmware upload:
